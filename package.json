@@ -1,0 +1,109 @@
+{
+  "name": "vs-tencent-cos-uploader",
+  "displayName": "tencent-cos-uploader",
+  "description": "在 markdown 中选择文件或截图上传至腾讯云 COS",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Sieunyue/vs-tencent-cos-uploader.git"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "tencent-cos-uploader.upload",
+        "title": "上传图片到tencent cos"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus && resourceLangId == markdown",
+          "command": "tencent-cos-uploader.upload",
+          "group": "tencent-cos-uploader"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname =~ /png|svg|jp(e?)g/",
+          "command": "tencent-cos-uploader.upload",
+          "group": "tencent-cos-uploader"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Tencent Cos Uploader Configuration",
+      "properties": {
+        "tencent-cos-uploader.secretId": {
+          "type": "string",
+          "default": "",
+          "description": "secretId"
+        },
+        "tencent-cos-uploader.secretKey": {
+          "type": "string",
+          "default": "",
+          "description": "secretKey"
+        },
+        "tencent-cos-uploader.bucket": {
+          "type": "string",
+          "default": "",
+          "description": "存储桶名称"
+        },
+        "tencent-cos-uploader.region": {
+          "type": "string",
+          "default": "",
+          "description": "Bucket所在区域"
+        },
+        "tencent-cos-uploader.remotePath": {
+          "type": "string",
+          "default": "",
+          "description": "存储目录, 如 a/b, 存储根路径则无需填写，无需以 / 开头"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "@vscode/test-electron": "^2.3.2",
+    "eslint": "^8.41.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "cos-nodejs-sdk-v5": "^2.12.1",
+    "crypto": "^1.0.1",
+    "dayjs": "^1.11.9",
+    "fs-extra": "^11.1.1",
+    "vsce": "^2.15.0"
+  }
+}
