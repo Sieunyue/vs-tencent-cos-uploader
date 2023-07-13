@@ -34,7 +34,7 @@
       ],
       "explorer/context": [
         {
-          "when": "resourceExtname =~ /png|svg|jp(e?)g/",
+          "when": "resourceExtname =~ /png|svg|jp(e?)g|gif|mp4/",
           "command": "tencent-cos-uploader.upload",
           "group": "tencent-cos-uploader"
         }
